@@ -1,18 +1,24 @@
-#include <Arduino.h>
-
-// put function declarations here:
-int myFunction(int, int);
+#include <WiFi.h>
+#include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  Serial.begin(115200);
+  // Optional: init e-ink display here, show "Provisioning" message
+  WiFiManager wifiManager;
+
+  // Uncomment to force portal every boot
+  // wifiManager.resetSettings();
+
+  // This starts an AP named "T5-Setup-XXXX" (auto-generated) and a captive portal.
+  if(!wifiManager.autoConnect("T5-Setup-XXXX","setup_password")) {
+    Serial.println("Failed to connect and hit timeout");
+    // handle failure (e.g. restart or fallback)
+  } else {
+    Serial.println("Connected to WiFi!");
+    // Proceed to normal operation
+  }
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  // normal device code
 }
