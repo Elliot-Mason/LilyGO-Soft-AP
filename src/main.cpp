@@ -59,6 +59,7 @@ void setup() {
 
   // --- Check if user pressed button at boot ---
   if (digitalRead(BUTTON_PIN) == LOW) { // assuming pull-up + button to GND
+    Serial.println("PRESSED");
     showMessage("Button pressed!\nResetting WiFi...");
     resetCredentials(wifiManager);
   }
@@ -66,7 +67,7 @@ void setup() {
   // Try auto-connect, else start portal
   showMessage("Opening AP:\nT5-Setup-XXXX");
 
-  if (!wifiManager.autoConnect("T5-Setup-XXXX", "password")) {
+  if (!wifiManager.autoConnect("T5-Setup-XXXX", "")) {
     showMessage("WiFi setup failed.\nRestart device.");
     // optional: ESP.restart();
   } else {
